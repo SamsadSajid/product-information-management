@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from utility.enums import EntityType
 from utility.request_validation import is_invalid_create_category_request_body
 from utility.utility import (
     convert_request_body_to_json, generate_invalid_req_body_error_message_response,
@@ -19,7 +20,7 @@ def create_category(request):
     category_name, parent = map_create_category(body)
 
     if object_exists_with_this_category(category_name):
-        return generate_bad_req_body_error_message_response()
+        return generate_bad_req_body_error_message_response(EntityType.CATEGORY.value)
 
     if parent:
         parent_of_the_category = Category.objects.get(name=parent)
@@ -37,7 +38,7 @@ def create_category(request):
 
 
 @api_view(['POST'])
-def create_delete(request):
+def delete_category(request):
     body = convert_request_body_to_json(request)
     category_name, _ = map_create_category(body)
 

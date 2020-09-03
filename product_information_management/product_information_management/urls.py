@@ -21,6 +21,6 @@ import article.urls as article_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(pim_urls)),
+    path('api/category/', include(pim_urls)),
     path('api/article/', include(article_urls)),
 ]

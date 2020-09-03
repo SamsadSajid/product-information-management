@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from article.models import Article
+from utility.enums import EntityType
 from utility.request_validation import is_invalid_create_article_request_body
 from utility.utility import (convert_request_body_to_json, generate_invalid_req_body_error_message_response,
                              map_create_article, object_exists_with_this_article,
@@ -18,7 +19,7 @@ def create_article(request):
     name, stock_quantity, price, category_name = map_create_article(body)
 
     if object_exists_with_this_article(name):
-        return generate_bad_req_body_error_message_response()
+        return generate_bad_req_body_error_message_response(EntityType.ARTICLE.value)
 
     category = get_category_for_article_or_none(category_name)
 
@@ -45,7 +46,7 @@ def edit_article(request):
 
     article = Article.objects.filter(name=name)
     if not article.exists():
-        return generate_bad_req_body_error_message_response()
+        return generate_bad_req_body_error_message_response(EntityType.ARTICLE.value)
 
     category = get_category_for_article_or_none(category_name)
 

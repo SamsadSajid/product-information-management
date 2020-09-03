@@ -30,9 +30,9 @@ def map_create_category(req_body):
     return category_name, parent
 
 
-def generate_bad_req_body_error_message_response():
+def generate_bad_req_body_error_message_response(entity_type):
     data = {
-        "message": "This category already exists"
+        "message": "This {} already exists".format(entity_type)
     }
     return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
 
