@@ -59,3 +59,10 @@ def get_category_for_article_or_none(category_name):
         return Category.objects.get(name=category_name, isDeleted=0)
     except Category.DoesNotExist:
         return None
+
+
+def generate_success_deletion_message(entity_type):
+    data = {
+        "message": "{} deleted successfully".format(entity_type.capitalize())
+    }
+    return Response(data=data)

@@ -5,7 +5,8 @@ from utility.enums import EntityType
 from utility.request_validation import is_invalid_create_category_request_body
 from utility.utility import (
     convert_request_body_to_json, generate_invalid_req_body_error_message_response,
-    map_create_category, generate_bad_req_body_error_message_response, object_exists_with_this_category
+    map_create_category, generate_bad_req_body_error_message_response, object_exists_with_this_category,
+    generate_success_deletion_message
 )
 from .models import Category
 
@@ -46,9 +47,6 @@ def delete_category(request):
     if category.exists():
         category.update(isDeleted=1)
 
-        data = {
-            "message": "Category deleted successfully"
-        }
-        return Response(data=data)
+        return generate_success_deletion_message(EntityType.CATEGORY.value)
 
     return generate_invalid_req_body_error_message_response()

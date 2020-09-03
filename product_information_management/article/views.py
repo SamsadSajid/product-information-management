@@ -6,7 +6,8 @@ from utility.enums import EntityType
 from utility.request_validation import is_invalid_create_article_request_body
 from utility.utility import (convert_request_body_to_json, generate_invalid_req_body_error_message_response,
                              map_create_article, object_exists_with_this_article,
-                             generate_bad_req_body_error_message_response, get_category_for_article_or_none)
+                             generate_bad_req_body_error_message_response, get_category_for_article_or_none,
+                             generate_success_deletion_message)
 
 
 @api_view(['POST'])
@@ -57,3 +58,18 @@ def edit_article(request):
     }
 
     return Response(data=data)
+
+
+@api_view(['POST'])
+def delete_article(request):
+    body = convert_request_body_to_json(request)
+
+    name, stock_quantity, price, category_name = map_create_article(body)
+
+    article = Article.objects.filter(name=name, isDeleted=0)
+    if article.exists():
+        article.update(isDeleted=1)
+
+        return generate_success_deletion_message(EntityType.ARTICLE.value)
+
+    return generate_invalid_req_body_error_message_response()

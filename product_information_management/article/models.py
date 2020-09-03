@@ -13,6 +13,7 @@ class Article(models.Model):
     stock_quantity = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     category = models.ForeignKey(Category, null=True, related_name="categoryRelationship", on_delete=models.SET_NULL)
+    isDeleted = models.IntegerField(default=0)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
 
@@ -26,4 +27,5 @@ class Article(models.Model):
         return super(Article, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.sku + " " + self.ean + " " + self.name + " " + str(self.stock_quantity) + " " + self.price
+        return str(self.sku) + " " + str(self.ean) + " " + self.name + " " + str(self.stock_quantity) + " " \
+               + str(self.price) + str(self.isDeleted)
