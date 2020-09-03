@@ -10,7 +10,7 @@ def is_invalid_create_category_request_body(req_body):
 
 
 def is_invalid_create_article_request_body(req_body):
-    sku, ean, name, stock_quantity, price, category = map_create_article(req_body)
+    name, stock_quantity, price, category_name = map_create_article(req_body)
 
     if not name:
         return True

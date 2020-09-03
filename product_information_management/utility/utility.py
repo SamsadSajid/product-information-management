@@ -1,6 +1,5 @@
 import json
 
-from django.db.models import Model
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -43,18 +42,16 @@ def object_exists_with_this_category(category_name):
 
 
 def map_create_article(req_body):
-    sku = req_body.get('sku', None)
-    ean = req_body.get('ean', None)
     name = req_body.get('name', None)
     stock_quantity = req_body.get('stock_quantity', None)
     price = req_body.get('price', None)
     category_name = req_body.get('category_name', None)
 
-    return sku, ean, name, stock_quantity, price, category_name
+    return name, stock_quantity, price, category_name
 
 
-def object_exists_with_this_article(sku, ean, name):
-    return Article.objects.filter(sku=sku, ean=ean, name=name).exists()
+def object_exists_with_this_article(name):
+    return Article.objects.filter(name=name).exists()
 
 
 def get_category_for_article_or_none(category_name):

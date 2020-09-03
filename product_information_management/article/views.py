@@ -15,21 +15,44 @@ def create_article(request):
     if is_invalid_create_article_request_body(body):
         return generate_invalid_req_body_error_message_response()
 
-    sku, ean, name, stock_quantity, price, category_name = map_create_article(body)
+    name, stock_quantity, price, category_name = map_create_article(body)
 
-    if object_exists_with_this_article(sku, ean, name):
+    if object_exists_with_this_article(name):
         return generate_bad_req_body_error_message_response()
 
     category = get_category_for_article_or_none(category_name)
 
-    article = Article.objects.create(sku=sku, ean=ean, name=name,
-                                     stock_quantity=stock_quantity,
-                                     price=price, category=category)
+    article = Article.objects.create(name=name, stock_quantity=stock_quantity, price=price,
+                                     category=category)
 
     article.save()
 
     data = {
         "message": "Category saved successfully"
+    }
+
+    return Response(data=data)
+
+
+@api_view(['POST'])
+def edit_article(request):
+    body = convert_request_body_to_json(request)
+
+    if is_invalid_create_article_request_body(body):
+        return generate_invalid_req_body_error_message_response()
+
+    name, stock_quantity, price, category_name = map_create_article(body)
+
+    article = Article.objects.filter(name=name)
+    if not article.exists():
+        return generate_bad_req_body_error_message_response()
+
+    category = get_category_for_article_or_none(category_name)
+
+    article.update(category=category)
+
+    data = {
+        "message": "Category updated successfully"
     }
 
     return Response(data=data)
