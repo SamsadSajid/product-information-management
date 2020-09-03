@@ -1,6 +1,3 @@
-import json
-
-from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -8,7 +5,7 @@ from utility.request_validation import is_invalid_create_category_request_body
 from utility.utility import (
     convert_request_body_to_json,
     generate_invalid_req_body_error_message_response,
-    map_create_category, generate_bad_req_body_error_message_response
+    map_create_category, generate_bad_req_body_error_message_response, object_exists_with_this_category
 )
 from .models import Category
 
@@ -22,13 +19,12 @@ def create_category(request):
 
     category_name, parent = map_create_category(body)
 
-    category = Category.objects.filter(name=category_name).exists()
-    if category:
+    if object_exists_with_this_category(category_name):
         return generate_bad_req_body_error_message_response()
 
     if parent:
         parent_of_the_category = Category.objects.get(name=parent)
-        category = Category.objects.create(name=category_name, parentId=parent_of_the_category)
+        category = Category.objects.create(name=category_name, parent=parent_of_the_category)
         category.save()
 
     else:

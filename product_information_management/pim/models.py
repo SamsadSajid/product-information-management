@@ -3,7 +3,8 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    parentId = models.ForeignKey('self', null=True, related_name="parentRelationshipId", on_delete=models.SET_NULL)
+    parent = models.ForeignKey('self', null=True, related_name="parentRelationshipId", on_delete=models.SET_NULL)
+    isDeleted = models.IntegerField(default=0)
 
 
 # class CategoryRelationShip(models.Model):
