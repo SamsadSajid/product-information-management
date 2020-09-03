@@ -38,3 +38,7 @@ def generate_bad_req_body_error_message_response():
 
 def object_exists_with_this_category(category_name):
     return Category.objects.filter(name=category_name).exists()
+
+
+def object_to_be_deleted_exists_with_this_category(category_name):
+    return Category.objects.filter(name=category_name, isDeleted=0).exists()

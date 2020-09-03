@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('category/create', views.create_category, name="create_category"),
+    path('category/delete', views.create_delete, name="create_delete"),
 ]
