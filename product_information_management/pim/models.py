@@ -6,7 +6,5 @@ class Category(models.Model):
     parent = models.ForeignKey('self', null=True, related_name="parentRelationshipId", on_delete=models.SET_NULL)
     isDeleted = models.IntegerField(default=0)
 
-
-# class CategoryRelationShip(models.Model):
-#     categoryId = Category
-#     parentCategoryId = Category
+    def __str__(self):
+        return self.name + " " + self.parent.name + " " + str(self.isDeleted)

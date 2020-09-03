@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 import pim.urls as pim_urls
+import article.urls as article_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(pim_urls)),
+    path('api/article/', include(article_urls)),
 ]
