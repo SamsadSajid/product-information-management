@@ -7,7 +7,7 @@ from utility.request_validation import is_invalid_create_article_request_body
 from utility.utility import (convert_request_body_to_json, generate_invalid_req_body_error_message_response,
                              map_create_article, object_exists_with_this_article,
                              generate_bad_req_body_error_message_response, get_category_for_article_or_none,
-                             generate_success_deletion_message)
+                             generate_success_deletion_message, generate_success_message)
 
 
 @api_view(['POST'])
@@ -29,11 +29,7 @@ def create_article(request):
 
     article.save()
 
-    data = {
-        "message": "Category saved successfully"
-    }
-
-    return Response(data=data)
+    return generate_success_message(EntityType.ARTICLE.value)
 
 
 @api_view(['POST'])

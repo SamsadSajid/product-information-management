@@ -21,6 +21,8 @@ class Article(models.Model):
         if not self.id:
             self.sku = uuid.uuid4()
             self.ean = uuid.uuid4()
+            self.stock_quantity = 0
+            self.price = 0.00
             self.created_at = timezone.now()
 
         self.updated_at = timezone.now()

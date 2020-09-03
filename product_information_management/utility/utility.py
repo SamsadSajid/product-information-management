@@ -66,3 +66,10 @@ def generate_success_deletion_message(entity_type):
         "message": "{} deleted successfully".format(entity_type.capitalize())
     }
     return Response(data=data)
+
+
+def generate_success_message(entity_type):
+    data = {
+        "message": "{} saved successfully".format(entity_type.capitalize())
+    }
+    return Response(data=data)

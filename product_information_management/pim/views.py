@@ -6,7 +6,7 @@ from utility.request_validation import is_invalid_create_category_request_body
 from utility.utility import (
     convert_request_body_to_json, generate_invalid_req_body_error_message_response,
     map_create_category, generate_bad_req_body_error_message_response, object_exists_with_this_category,
-    generate_success_deletion_message
+    generate_success_deletion_message, generate_success_message
 )
 from .models import Category
 
@@ -32,10 +32,7 @@ def create_category(request):
         category = Category.objects.create(name=category_name)
         category.save()
 
-    data = {
-        "message": "Category saved successfully"
-    }
-    return Response(data=data)
+    return generate_success_message(EntityType.CATEGORY.value)
 
 
 @api_view(['POST'])
