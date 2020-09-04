@@ -12,11 +12,11 @@
 
 # API Document
 Request Header
-| Header Name | Header Type |
-| ----------  | ------------|
-| Content-Type | application/json|
-|Accept| application/json|
-|Authorization| `<accessToken>` |
+|Header Name | Header Type|
+|---|---|
+|Content-Type|application/json|
+|Accept|application/json|
+|Authorization|`<accessToken>`|
 
 ## Create a Category
 | Request Method | Request Path |
@@ -55,7 +55,7 @@ Sample Response Body
 ## Update a Category
 | Request Method | Request Path |
 | -------------- | -------------|
-|      POST      | `api/category/update` |
+|      POST      | `api/category/edit` |
 
 Request Body Field Description
 | Field Name | Field Type | Mandatory|
