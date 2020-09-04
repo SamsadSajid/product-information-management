@@ -277,4 +277,33 @@ Sample Response Body
 }
 ```
 
+# Run the project
+1. Create a virtual environment
+2. `source my_venv/bin/activate`
+3. `pip install -r requirements.txt`
+4. Run `docker-compose up`
+5. Navigate to the dir `product_information_management`
+6. Run `python manage.py makemigrations` and `python manage.py migrate`
+7. Run `python manage.py runserver`
+
+# Run the test cases
+1. Run the aformentioned commands from `1-5`
+2. Run `pytest`
+
 # System Design
+![PIM-MVP](/uploads/1a9a3a6e71b359b622dc7a04d3214cfe/PIM-MVP.png)
+
+# Motivation behind this architecture
+- Considered `Dynamodb` because the category can be nested. Seemed like unstructured data. Problem was to keep them in the table.
+- `Node` would be great because take less time to bootstrap a project. Also could use `pm2`
+- Chose `postgres` to keep the nested category
+- Chose `django` because it supports better orm. `Node` does not have a good one.
+- The system is a read-heavy one. Will be more read than write
+
+
+# Scaling the system
+![TradeByte-Page-2](/uploads/93c6417a43257f9b3ee9ffd6a5c644f0/TradeByte-Page-2.png)
+
+- For secret management, **AWS SSM/Consul** can be used
+   
+
