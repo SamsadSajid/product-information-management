@@ -3,6 +3,7 @@
 # Features
 - As a user I can add a Category
 - As a user I can add a Category to another category
+- As a user I can update category
 - As a user I can delete a Category
 - As a user I can add an Article
 - As a user I can add a category to an article
@@ -12,7 +13,8 @@
 
 # API Document
 Request Header
-|Header Name | Header Type|
+
+|Header Name|Header Content|
 |---|---|
 |Content-Type|`application/json`|
 |Accept|`application/json`|
@@ -24,6 +26,7 @@ Request Header
 |      POST      | `api/category/create` |
 
 Request Body Field Description
+
 | Field Name | Field Type | Mandatory|
 |----------|-----------|----------|
 |  `name`    | `String`   | YES|
@@ -58,6 +61,7 @@ Sample Response Body
 |      POST      | `api/category/edit` |
 
 Request Body Field Description
+
 | Field Name | Field Type | Mandatory|
 |----------|-----------|----------|
 |  `name`  | `String`  | YES|
@@ -91,6 +95,7 @@ Sample Response Body
 |      POST      | `api/category/delete` |
 
 Request Body Field Description
+
 | Field Name | Field Type | Mandatory|
 | ---------- | -----------|----------|
 |  `name`    | `String`   | YES|
@@ -122,6 +127,7 @@ Sample Response Body
 |      POST      | `api/article/create` |
 
 Request Body Field Description
+
 | Field Name | Field Type | Mandatory| Notes|
 | ---------- | -----------|----------|----------|
 |  `name`    | `String`   | YES|-|
@@ -159,6 +165,7 @@ Sample Response Body
 |      POST      | `api/article/edit` |
 
 Request Body Field Description
+
 | Field Name | Field Type | Mandatory| Notes|
 | ---------- | -----------|----------|----------|
 |  `name`    | `String`   | YES|-|
@@ -195,6 +202,7 @@ Sample Response Body
 |      POST      | `api/article/delete`|
 
 Request Body Field Description
+
 | Field Name | Field Type | Mandatory|
 |----------|-----------|----------|
 |  `name`  | `String`  | YES|

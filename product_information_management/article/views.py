@@ -83,3 +83,8 @@ def delete_article(request):
         return generate_success_deletion_message(EntityType.ARTICLE.value)
 
     return generate_invalid_req_body_error_message_response()
+
+
+@api_view(['GET'])
+def get_all_articles(request):
+    return Article.objects.all().order_by('-price')
