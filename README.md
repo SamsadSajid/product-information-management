@@ -14,8 +14,8 @@
 Request Header
 |Header Name | Header Type|
 |---|---|
-|Content-Type|application/json|
-|Accept|application/json|
+|Content-Type|`application/json`|
+|Accept|`application/json`|
 |Authorization|`<accessToken>`|
 
 ## Create a Category
@@ -192,7 +192,7 @@ Sample Response Body
 ## Delete an Article
 | Request Method | Request Path |
 | -------------- | -------------|
-|      POST      | `api/article/delete` |
+|      POST      | `api/article/delete`|
 
 Request Body Field Description
 | Field Name | Field Type | Mandatory|
