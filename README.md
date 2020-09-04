@@ -228,4 +228,53 @@ Sample Response Body
 }
 ```
 
+## Get all articles for a category
+| Request Method | Request Path |
+| -------------- | -------------|
+|      GET      | `api/article/get-all-articles?page=1`|
+
+Request Body Field Description
+
+| Field Name | Field Type | Mandatory|
+|----------|-----------|----------|
+|  `name`  | `String`  | YES|
+
+HTTP Status Code
+
+| Status Code | Type|
+|---|---|
+|200|Successful Deletion|
+|400|Bad Request|
+
+Sample Request Body
+```
+{
+    "name":"kitchenware"
+}
+```
+Sample Response Body
+
+```
+{
+    "data": [
+        {
+            "sku": "50e1d0ef-ef8a-490a-930e-65f4cf8f0f94",
+            "ean": "98b375b9-838c-461d-b3f0-3a199cc5303c",
+            "price": 212.0,
+            "name": "Oven",
+            "stock_quantity": 519
+        },
+        {
+            "sku": "c03620a6-9010-4fbc-b8f4-962d7d076406",
+            "ean": "b3ea2c02-64a7-42fc-ace7-08d8037c8834",
+            "price": 212.0,
+            "name": "Kitchen Sink",
+            "stock_quantity": 519
+        }
+    ],
+    "hasNextPage": true,
+    "pageSize": 2
+}
+```
+
 # System Design
