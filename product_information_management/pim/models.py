@@ -7,4 +7,4 @@ class Category(models.Model):
     isDeleted = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name + " " + self.parent.name + " " + str(self.isDeleted)
+        return self.name + " " + str(self.isDeleted)

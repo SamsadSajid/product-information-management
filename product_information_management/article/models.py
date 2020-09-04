@@ -12,7 +12,7 @@ class Article(models.Model):
     name = models.CharField(max_length=50, unique=True)
     stock_quantity = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
-    category = models.ForeignKey(Category, null=True, related_name="categoryRelationship", on_delete=models.SET_NULL)
+    category = models.ManyToManyField(Category)
     isDeleted = models.IntegerField(default=0)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
@@ -21,8 +21,6 @@ class Article(models.Model):
         if not self.id:
             self.sku = uuid.uuid4()
             self.ean = uuid.uuid4()
-            self.stock_quantity = 0
-            self.price = 0.00
             self.created_at = timezone.now()
 
         self.updated_at = timezone.now()

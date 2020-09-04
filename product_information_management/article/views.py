@@ -7,7 +7,7 @@ from utility.request_validation import is_invalid_create_article_request_body
 from utility.utility import (convert_request_body_to_json, generate_invalid_req_body_error_message_response,
                              map_create_article, object_exists_with_this_article,
                              generate_bad_req_body_error_message_response, get_category_for_article_or_none,
-                             generate_success_deletion_message, generate_success_message)
+                             generate_success_deletion_message, generate_success_message, get_category_list_or_none)
 
 
 @api_view(['POST'])
@@ -22,12 +22,16 @@ def create_article(request):
     if object_exists_with_this_article(name):
         return generate_bad_req_body_error_message_response(EntityType.ARTICLE.value)
 
-    category = get_category_for_article_or_none(category_name)
-
-    article = Article.objects.create(name=name, stock_quantity=stock_quantity, price=price,
-                                     category=category)
+    article = Article.objects.create(name=name, stock_quantity=stock_quantity, price=price)
 
     article.save()
+
+    category_list = get_category_list_or_none(category_name)
+
+    # TODO: Optimize the following operation to minimize the db call
+    if category_list:
+        for category in category_list:
+            article.category.add(category)
 
     return generate_success_message(EntityType.ARTICLE.value)
 
@@ -45,12 +49,22 @@ def edit_article(request):
     if not article.exists():
         return generate_bad_req_body_error_message_response(EntityType.ARTICLE.value)
 
-    category = get_category_for_article_or_none(category_name)
+    if price != 0:
+        article.update(price=price)
 
-    article.update(category=category)
+    if stock_quantity != 0:
+        article.update(stock_quantity=stock_quantity)
+
+    article = Article.objects.get(name=name, isDeleted=0)
+
+    category_list = get_category_list_or_none(category_name)
+
+    if category_list:
+        for category in category_list:
+            article.category.add(category)
 
     data = {
-        "message": "Category updated successfully"
+        "message": "Article updated successfully"
     }
 
     return Response(data=data)

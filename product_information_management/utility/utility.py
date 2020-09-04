@@ -43,8 +43,8 @@ def object_exists_with_this_category(category_name):
 
 def map_create_article(req_body):
     name = req_body.get('name', None)
-    stock_quantity = req_body.get('stock_quantity', None)
-    price = req_body.get('price', None)
+    stock_quantity = req_body.get('stock_quantity', 0)
+    price = req_body.get('price', 0)
     category_name = req_body.get('category_name', None)
 
     return name, stock_quantity, price, category_name
@@ -59,6 +59,19 @@ def get_category_for_article_or_none(category_name):
         return Category.objects.get(name=category_name, isDeleted=0)
     except Category.DoesNotExist:
         return None
+
+
+# TODO: Optimize the following operation to minimize the db call
+def get_category_list_or_none(category_name):
+    _list = []
+
+    if category_name:
+        for category in category_name:
+            _ = get_category_for_article_or_none(category)
+            if _ is not None:
+                _list.append(_)
+
+    return _list
 
 
 def generate_success_deletion_message(entity_type):
