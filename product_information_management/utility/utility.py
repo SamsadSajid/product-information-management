@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from article.models import Article
 from pim.models import Category
+from utility.constants import PAGE_SIZE
 
 
 def convert_request_body_to_json(request):
@@ -94,3 +95,25 @@ def generate_success_edit_message(entity_type):
     }
 
     return Response(data=data)
+
+
+def get_paginated_articles(articles_pages):
+    data = []
+
+    for article in articles_pages.object_list:
+        _data = {
+            'sku': article.sku,
+            'ean': article.ean,
+            'price': article.price,
+            'name': article.name,
+            'stock_quantity': article.stock_quantity
+        }
+        data.append(_data)
+
+    res = {
+        "data": data,
+        "hasNextPage": articles_pages.has_next(),
+        "pageSize": PAGE_SIZE
+    }
+
+    return res

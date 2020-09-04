@@ -1,13 +1,17 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from article.models import Article
+from pim.models import Category
+from utility.constants import DEFAULT_PAGE_NUMBER, PAGE_SIZE
 from utility.enums import EntityType
 from utility.request_validation import is_invalid_create_article_request_body
 from utility.utility import (convert_request_body_to_json, generate_invalid_req_body_error_message_response,
                              map_create_article, object_exists_with_this_article,
                              generate_bad_req_body_error_message_response, get_category_for_article_or_none,
-                             generate_success_deletion_message, generate_success_message, get_category_list_or_none)
+                             generate_success_deletion_message, generate_success_message, get_category_list_or_none,
+                             map_create_category, get_paginated_articles)
 
 
 @api_view(['POST'])
@@ -87,4 +91,26 @@ def delete_article(request):
 
 @api_view(['GET'])
 def get_all_articles(request):
-    return Article.objects.all().order_by('-price')
+    body = convert_request_body_to_json(request)
+    category_name, _ = map_create_category(body)
+    page = request.GET.get('page', DEFAULT_PAGE_NUMBER)
+
+    try:
+        category = Category.objects.get(name=category_name)
+
+        articles = Article.objects.filter(category=category, isDeleted=0).order_by('-price')
+
+        paginator = Paginator(articles, PAGE_SIZE)
+
+        try:
+            articles_pages = paginator.page(page)
+        except PageNotAnInteger:
+            articles_pages = paginator.page(DEFAULT_PAGE_NUMBER)
+        except EmptyPage:
+            articles_pages = paginator.page(paginator.num_pages)
+
+        return Response(data=get_paginated_articles(articles_pages))
+
+    except Category.DoesNotExist:
+        return generate_invalid_req_body_error_message_response()
+
