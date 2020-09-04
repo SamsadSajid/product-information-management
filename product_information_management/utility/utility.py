@@ -117,3 +117,18 @@ def get_paginated_articles(articles_pages):
     }
 
     return res
+
+
+def get_category(categories):
+    data = []
+
+    for category in categories:
+        _data = {
+            'name': category.name
+        }
+        data.append(_data)
+
+    res = {
+        'data': data
+    }
+    return res

@@ -243,7 +243,7 @@ HTTP Status Code
 
 | Status Code | Type|
 |---|---|
-|200|Successful Deletion|
+|200|Successful|
 |400|Bad Request|
 
 Sample Request Body
@@ -277,6 +277,46 @@ Sample Response Body
 }
 ```
 
+## Get all categories
+| Request Method | Request Path |
+| -------------- | -------------|
+|      GET      | `api/category/get-all-catagories?name=clothes`|
+
+URL Parameter Description
+
+| Field Name | Field Type | Mandatory|
+|----------|-----------|----------|
+|  `name`  | `String`  | NO|
+
+Note
+> If no parameter is mentioned in the url i.e if the url is like `api/category/get-all-catagories`, only the Categories that have no children will be returned. If the parameter `name` is given for a valid Category, then all Catagories who are children of this `name` category will be returned
+
+HTTP Status Code
+
+| Status Code | Type|
+|---|---|
+|200|Successful|
+|400|Bad Request|
+
+Sample Request Body
+
+_Not Needed_
+
+Sample Response Body
+
+```
+{
+    "data": [
+        {
+            "name": "shirts"
+        },
+        {
+            "name": "pants"
+        }
+    ]
+}
+```
+
 # Run the project
 1. Create a virtual environment
 2. `source my_venv/bin/activate`
@@ -289,6 +329,8 @@ Sample Response Body
 # Run the test cases
 1. Run the aformentioned commands from `1-5`
 2. Run `pytest`
+
+> Test cases file are in this format: `api_tests.py, integratio_tests.py, unit_tests.py`
 
 # System Design
 ![PIM-MVP](/uploads/1a9a3a6e71b359b622dc7a04d3214cfe/PIM-MVP.png)

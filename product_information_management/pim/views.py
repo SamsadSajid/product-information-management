@@ -1,11 +1,14 @@
+from django.core.paginator import Paginator
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
+from utility.constants import PAGE_SIZE
 from utility.enums import EntityType
 from utility.request_validation import is_invalid_create_category_request_body, is_invalid_edit_category_request_body
 from utility.utility import (
     convert_request_body_to_json, generate_invalid_req_body_error_message_response,
     map_create_category, generate_bad_req_body_error_message_response, object_exists_with_this_category,
-    generate_success_deletion_message, generate_success_message, generate_success_edit_message
+    generate_success_deletion_message, generate_success_message, generate_success_edit_message, get_category
 )
 from .models import Category
 
@@ -60,10 +63,29 @@ def edit_category(request):
     try:
         category = Category.objects.get(name=category_name)
         parent_category, _ = Category.objects.get_or_create(name=parent)
-        print(parent_category, _)
         category.parent = parent_category
         category.save()
 
         return generate_success_edit_message(EntityType.CATEGORY.value)
     except Category.DoesNotExist:
         return generate_invalid_req_body_error_message_response()
+
+
+@api_view(['GET'])
+def get_all_categories(request):
+    category_name = request.GET.get('name', None)
+    print(category_name)
+
+    if not category_name:
+        categories = Category.objects.filter(parent=None, isDeleted=0)
+
+        return Response(data=get_category(categories))
+
+    else:
+        try:
+            parent_category = Category.objects.get(name=category_name, isDeleted=0)
+            categories = Category.objects.filter(parent=parent_category, isDeleted=0)
+
+            return Response(data=get_category(categories))
+        except Category.DoesNotExist:
+            return generate_invalid_req_body_error_message_response()
