@@ -8,7 +8,7 @@ def test_is_valid_create_category_request_body_should_return_true_for_invalid_re
 
     is_invalid_req_body = is_invalid_create_category_request_body(req_body)
 
-    assert is_invalid_req_body == True, "The req body must contain the param `name`"
+    assert is_invalid_req_body is True, "The req body must contain the param `name`"
 
 
 def test_is_valid_create_category_request_body_should_return_false_for_valid_request_body():
@@ -18,5 +18,5 @@ def test_is_valid_create_category_request_body_should_return_false_for_valid_req
 
     is_invalid_req_body = is_invalid_create_category_request_body(req_body)
 
-    assert is_invalid_req_body == False, "The req body has the param `name`"
+    assert is_invalid_req_body is False, "The req body has the param `name`"
 

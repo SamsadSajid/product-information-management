@@ -16,3 +16,12 @@ def is_invalid_create_article_request_body(req_body):
         return True
 
     return False
+
+
+def is_invalid_edit_category_request_body(req_body):
+    category_name, parent = map_create_category(req_body)
+
+    if not category_name or not parent:
+        return True
+
+    return False

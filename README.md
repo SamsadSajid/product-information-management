@@ -25,7 +25,7 @@ Request Header
 
 Request Body Field Description
 | Field Name | Field Type | Mandatory|
-| ---------- | -----------|----------|
+|----------|-----------|----------|
 |  `name`    | `String`   | YES|
 |  `parent`    | `String`   | NO|
 
@@ -91,8 +91,8 @@ Sample Response Body
 Request Body Field Description
 | Field Name | Field Type | Mandatory| Notes|
 | ---------- | -----------|----------|----------|
-|  `name`    | `String`   | YES||-|
-|  `category_name`| `List<String>`   | NO||-|
+|  `name`    | `String`   | YES|-|
+|  `category_name`| `List<String>`   | NO|-|
 |  `price`    | `Float`   | NO |max_digits=6, decimal_places=2|
 |  `stock_quantity`    | `Integer`| NO |-|
 
@@ -128,8 +128,8 @@ Sample Response Body
 Request Body Field Description
 | Field Name | Field Type | Mandatory| Notes|
 | ---------- | -----------|----------|----------|
-|  `name`    | `String`   | YES||-|
-|  `category_name`| `List<String>`   | NO||-|
+|  `name`    | `String`   | YES|-|
+|  `category_name`| `List<String>`   | NO|-|
 |  `price`    | `Float`   | NO |max_digits=6, decimal_places=2|
 |  `stock_quantity`    | `Integer`| NO |-|
 
@@ -163,8 +163,8 @@ Sample Response Body
 
 Request Body Field Description
 | Field Name | Field Type | Mandatory|
-| ---------- | -----------|----------|
-|  `name`    | `String`   | YES|
+|----------|-----------|----------|
+|  `name`  | `String`  | YES|
 
 HTTP Status Code
 

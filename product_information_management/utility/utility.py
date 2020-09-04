@@ -86,3 +86,11 @@ def generate_success_message(entity_type):
         "message": "{} saved successfully".format(entity_type.capitalize())
     }
     return Response(data=data)
+
+
+def generate_success_edit_message(entity_type):
+    data = {
+        "message": "{} updated successfully".format(entity_type.capitalize())
+    }
+
+    return Response(data=data)
