@@ -333,7 +333,7 @@ Sample Response Body
 > Test cases file are in this format: `api_tests.py, integratio_tests.py, unit_tests.py`
 
 # System Design
-![PIM-MVP](/uploads/1a9a3a6e71b359b622dc7a04d3214cfe/PIM-MVP.png)
+![PIM-MVP](https://user-images.githubusercontent.com/19304394/94608900-e8a3f380-02bf-11eb-841e-ea3c9027f3cb.png)
 
 # Motivation behind this architecture
 - Considered `Dynamodb` because the category can be nested. Seemed like unstructured data. Problem was to keep them in the table.
@@ -344,7 +344,7 @@ Sample Response Body
 
 
 # Scaling the system
-![TradeByte-Page-2](/uploads/93c6417a43257f9b3ee9ffd6a5c644f0/TradeByte-Page-2.png)
+![TradeByte-Page-2](https://user-images.githubusercontent.com/19304394/94608912-eb9ee400-02bf-11eb-93d9-40e04cc42d9a.png)
 
 - For secret management, **AWS SSM/Consul** can be used
    
