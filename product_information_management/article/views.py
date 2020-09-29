@@ -96,7 +96,7 @@ def get_all_articles(request):
     page = request.GET.get('page', DEFAULT_PAGE_NUMBER)
 
     try:
-        category = Category.objects.get(name=category_name)
+        category = Category.objects.get(name=category_name, isDeleted=0)
 
         articles = Article.objects.filter(category=category, isDeleted=0).order_by('-price')
 
